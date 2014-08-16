@@ -4,9 +4,10 @@ build: ; \
 
 clean: ; \
     rm -fr env; \
-    rm -f `find . -name *.pyc`
+    rm -f `find . -name *.pyc`; \
+    rm -f perfreports/static/charts/*.png
 
 flake8: ; \
-    ./env/bin/flake8 perfreports
+    ./env/bin/flake8 --max-line-length=80 perfreports
 
 test: flake8;

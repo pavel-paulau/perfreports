@@ -1,0 +1,17 @@
+<!doctype html>
+
+<head>
+    <title>{{ snapshot }}</title>
+
+    <link rel="stylesheet" href="/static/css/vendor/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="text-center">
+        {% for metric, filename in meta %}
+            <h4 class="text-info chart-title">{{ metric }}</h4>
+            <img src="{{ filename }}" class="text-center">
+            <hr>
+        {% endfor %}
+    </div>
+</body>

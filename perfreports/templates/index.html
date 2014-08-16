@@ -11,7 +11,9 @@
     <div style="width: 20%; margin-left: 40%; margin-top: 20px">
         <ul class="list-group">
             {% for snapshot in snapshots %}
-                <li class="list-group-item">{{ snapshot }}</li>
+                <li class="list-group-item">
+                    <a href="/{{ snapshot }}">{{ snapshot }}</a>
+                </li>
             {% endfor %}
         </ul>
     </div>

@@ -53,3 +53,5 @@ coverage.xml
 docs/_build/
 
 .idea
+
+perfreports/static/charts/*.png
