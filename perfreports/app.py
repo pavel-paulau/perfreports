@@ -1,7 +1,6 @@
 import os
 import re
 
-import pymongo
 from flask import Flask, render_template, send_from_directory
 
 from perfreports import data
@@ -9,7 +8,6 @@ from perfreports.constants import LABELS
 from perfreports.plotter import plot
 
 app = Flask(__name__)
-m = pymongo.MongoClient()
 
 
 @app.route('/')
