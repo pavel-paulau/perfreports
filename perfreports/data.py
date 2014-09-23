@@ -1,7 +1,13 @@
+import sys
+
 import pandas as pd
 import pymongo
+from pymongo.errors import ConnectionFailure
 
-m = pymongo.MongoClient()
+try:
+    m = pymongo.MongoClient()
+except ConnectionFailure:
+    sys.exit('MongoDB is not running... exiting.')
 
 
 def get_all_snapshots():
