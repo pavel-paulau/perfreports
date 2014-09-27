@@ -1,13 +1,12 @@
 import os
 import re
 
-from flask import Flask, render_template, send_from_directory
+from flask import render_template, send_from_directory
 
+from perfreports import app
 from perfreports import data
 from perfreports.constants import LABELS
 from perfreports.plotter import plot
-
-app = Flask(__name__)
 
 
 @app.route('/')
@@ -43,7 +42,3 @@ def report(snapshot):
                      fname.replace('perfreports', '')))
 
     return render_template('report.html', meta=meta)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

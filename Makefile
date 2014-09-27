@@ -8,6 +8,9 @@ clean:
 	rm -f perfreports/static/charts/*.png
 
 flake8:
-	./env/bin/flake8 --max-line-length=80 perfreports
+	./env/bin/flake8 --max-line-length 80 --exclude perfreports/__init__.py perfreports
 
 test: flake8
+
+run:
+	./env/bin/python runserver.py
