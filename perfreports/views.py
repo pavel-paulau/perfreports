@@ -36,9 +36,13 @@ def report(snapshot):
         fname = generate_filename(snapshot, source, metric)
         series = data.get_series(snapshot=snapshot, data_path=data_path)
         label = LABELS.get(metric, metric)
+
         plot(series=series, ylabel=label, fname=fname)
 
-        meta.append(('{} : {} : {}'.format(source, metric, label),
-                     fname.replace('perfreports', '')))
+        if label == metric:
+            chart_title = ' : '.join((source, metric))
+        else:
+            chart_title = ' : '.join((source, metric, label))
+        meta.append((chart_title, fname.replace('perfreports', '')))
 
     return render_template('report.html', meta=meta)

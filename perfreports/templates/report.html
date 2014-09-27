@@ -8,8 +8,8 @@
 
 <body>
     <div class="text-center">
-        {% for metric, filename in meta %}
-            <h4 class="text-info chart-title">{{ metric }}</h4>
+        {% for title, filename in meta %}
+            <h4 class="text-info chart-title">{{ title }}</h4>
             <img src="{{ filename }}" class="text-center">
             <hr>
         {% endfor %}
