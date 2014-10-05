@@ -15,6 +15,7 @@ Running webapp
 
 Assuming that perfkeeper database (MongoDB or TokuMX) is running on the same machine:
 
+    $ make
     $ make run
 
 The command above will start HTTP listener on port 5000.
