@@ -1,6 +1,8 @@
 perfreports
 ===========
 
+[![Build Status](https://travis-ci.org/pavel-paulau/perfreports.svg?branch=master)](https://travis-ci.org/pavel-paulau/perfreports)
+
 **perfreports** is the simplest way to generate HTML reports based on [perfkeeper](https://github.com/pavel-paulau/perfkeeper) data.
 
 
