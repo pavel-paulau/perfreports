@@ -1,7 +1,7 @@
 perfreports
 ===========
 
-[![Build Status](https://travis-ci.org/pavel-paulau/perfreports.svg?branch=master)](https://travis-ci.org/pavel-paulau/perfreports)
+[![Build Status](https://travis-ci.org/pavel-paulau/perfreports.svg?branch=master)](https://travis-ci.org/pavel-paulau/perfreports) [![Code Health](https://landscape.io/github/pavel-paulau/perfreports/master/landscape.png)](https://landscape.io/github/pavel-paulau/perfreports/master)
 
 **perfreports** is the simplest way to generate HTML reports based on [perfkeeper](https://github.com/pavel-paulau/perfkeeper) data.
 
