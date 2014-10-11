@@ -33,11 +33,12 @@ def report(snapshot):
 
     for data_path in data.get_data_paths(snapshot=snapshot):
         source, metric = data_path.split(':')
-        fname = generate_filename(snapshot, source, metric)
-        series = data.get_series(snapshot=snapshot, data_path=data_path)
         label = LABELS.get(metric, metric)
+        fname = generate_filename(snapshot, source, metric)
 
-        plot(series=series, ylabel=label, fname=fname)
+        if not os.path.isfile(fname):
+            series = data.get_series(snapshot=snapshot, data_path=data_path)
+            plot(series=series, ylabel=label, fname=fname)
 
         chart_title = ' : '.join((source, label))
         meta.append((chart_title, fname.replace('perfreports', '')))
