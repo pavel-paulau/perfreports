@@ -39,10 +39,7 @@ def report(snapshot):
 
         plot(series=series, ylabel=label, fname=fname)
 
-        if label == metric:
-            chart_title = ' : '.join((source, metric))
-        else:
-            chart_title = ' : '.join((source, metric, label))
+        chart_title = ' : '.join((source, label))
         meta.append((chart_title, fname.replace('perfreports', '')))
 
     return render_template('report.html', meta=meta)
