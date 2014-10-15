@@ -1,5 +1,3 @@
-PYTHON = python3.4
-
 ENV = env
 ENV_BIN = $(ENV)/bin
 
@@ -7,7 +5,7 @@ PIP_CACHE = /tmp/pip
 
 
 build:
-	virtualenv -p $(PYTHON) $(ENV)
+	virtualenv $(ENV)
 	$(ENV_BIN)/pip install --download-cache $(PIP_CACHE) -r requirements.txt
 
 clean:
