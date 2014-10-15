@@ -11,7 +11,7 @@ from perfreports.plotter import plot
 
 @app.route('/')
 def index():
-    snapshots = data.get_all_snapshots()
+    snapshots = data.snapshots()
     return render_template('index.html', snapshots=snapshots)
 
 
@@ -31,13 +31,12 @@ def generate_filename(snapshot, source, metric):
 def report(snapshot):
     meta = []
 
-    for data_path in data.get_data_paths(snapshot=snapshot):
-        source, metric = data_path.split(':')
+    for source, metric in data.get_data_paths(snapshot=snapshot):
         label = LABELS.get(metric, metric)
         fname = generate_filename(snapshot, source, metric)
 
         if not os.path.isfile(fname):
-            series = data.get_series(snapshot=snapshot, data_path=data_path)
+            series = data.get_series(snapshot, source, metric)
             plot(series=series, ylabel=label, fname=fname)
 
         chart_title = ' : '.join((source, label))

@@ -1,44 +1,43 @@
-import sys
-
 import pandas as pd
-import pymongo
-from pymongo.errors import ConnectionFailure
-
-try:
-    m = pymongo.MongoClient()
-except ConnectionFailure:
-    sys.exit('MongoDB is not running... exiting.')
+import requests
 
 
-def get_all_snapshots():
-    return sorted(
-        name.replace('perf', '')
-        for name in m.database_names() if name.startswith('perf')
-    )
+BASE_URL = 'http://127.0.0.1:8080/'
+
+
+session = requests.session()
+
+
+def snapshots(*args):
+    return session.get(url='{}'.format(BASE_URL, *args)).json()
+
+
+def sources(*args):
+    return session.get(url='{}/{}'.format(BASE_URL, *args)).json()
+
+
+def metrics(*args):
+    return session.get(url='{}/{}/{}'.format(BASE_URL, *args)).json()
+
+
+def raw_data(*args):
+    return session.get(url='{}/{}/{}/{}'.format(BASE_URL, *args)).json()
+
+
+def summary(*args):
+    return session.get(url='{}/{}/{}/{}/summary'.format(BASE_URL, *args)).json()
 
 
 def get_data_paths(snapshot):
-    snapshot = 'perf' + snapshot
-
     data_paths = []
-    for source in m[snapshot].collection_names():
-        if source != 'system.indexes':
-            for metric in m[snapshot][source].find().distinct(key='m'):
-                data_paths.append('{}:{}'.format(source, metric))
-
+    for source in sources(snapshot):
+        for metric in metrics(snapshot, source):
+            data_paths.append((source, metric))
     return data_paths
 
 
-def get_series(snapshot, data_path):
-    snapshot = 'perf' + snapshot
-
-    source, metric = data_path.split(':')
-
-    series = pd.Series({
-        sample['ts']: sample['v']
-        for sample in m[snapshot][source].find({'m': metric}, {'v': 1, 'ts': 1})
-    })
-    series.dropna()
+def get_series(snapshot, source, metric):
+    series = pd.Series(raw_data(snapshot, source, metric))
     series.index = series.index.astype('uint64')
     series.rename(lambda x: x - series.index.values.min(), inplace=True)
     series.rename(lambda x: x / 10 ** 9, inplace=True)  # ns -> s
